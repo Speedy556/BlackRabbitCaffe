@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../Css/style.css" />
+  <script src="https://kit.fontawesome.com/d6a9c2e72d.js" crossorigin="anonymous"></script>
+  <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+  <link rel='icon' href="../../Ico/rabbit no box.png">
+  <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+  <script src="../Js/main.js" defer></script>
+  <script src="../Js/food.js" defer></script>
+  <script src="../Js/window.js" defer></script>
+  <script src="../Js/store.js" defer></script>
+  <!-- <script src="../Js/admin.js"></script> -->
+  <title>Mâncare</title>
+
+</head>
+
+<body>
+  <div id="loading">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+  <nav class="sidebar close">
+    <header>
+      <div class="image-text">
+        <a href="../../index.html">
+          <span class="image">
+            <img src="../../Ico/raabbiat.png" alt="logo" class="logo2">
+            <img src="../../Ico/rabbit no box.png" alt="logo" class="logo1">
+          </span>
+        </a>
+        <div class="text header-text">
+          <span class="name">Black Rabbit</span>
+          <span class="caffe">Caffe</span>
+        </div>
+      </div>
+
+      <i class="bx bx-chevron-right toggle" id="stoggle"></i>
+
+    </header>
+
+    <div class="menu-bar">
+      <div class="menu">
+
+        <!-- menu links -->
+        <ul class="menu-links">
+          <!-- menu links -->
+          <!-- menu home -->
+          <li class="nav-link">
+            <a href="../../index.html">
+              <i class='bx bx-home-alt icon'></i>
+              <span class="text nav-text">Acasă</span>
+            </a>
+          </li>
+          <!-- menu food -->
+          <li class="nav-link">
+            <a href="Food.html">
+              <i class='bx bx-dish icon'></i>
+              <span class="text nav-text">Gustări</span>
+            </a>
+          </li>
+          <!-- menu drinks -->
+          <li class="nav-link">
+            <a href="Drinks.html">
+              <i class='bx bx-drink icon'></i>
+              <span class="text nav-text">Băuturi</span>
+            </a>
+          </li>
+          <!-- menu cart -->
+          <li class="nav-link">
+            <a href="#" id="cartbtn">
+              <i class='bx bx-cart-alt icon'></i>
+              <span class="text nav-text">Coș</span>
+            </a>
+          </li>
+          <!-- menu information -->
+          <li class="nav-link">
+            <a href="Info.html">
+              <i class='bx bx-info-circle icon'></i>
+              <span class="text nav-text">Informații</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="bottom">
+        <li class="nav-link2">
+          <a href="Admin.html">
+            <i class="fa-solid fa-user icon"></i>
+            <span class="text nav-text">Admin</span>
+          </a>
+        </li>
+        <li class="nav-link1">
+          <a href="Create.html">
+            <i class='bx bx-plus-circle icon'></i>
+            <span class="text nav-text">Adaugă</span>
+          </a>
+        </li>
+        <li class="mode">
+          <div class="night-day">
+            <i class="bx bx-moon icon moon"></i>
+            <i class="bx bx-sun icon sun"></i>
+          </div>
+
+          <span class="mode-text text">Dark Mode</span>
+
+          <div class="toggle-switch" id="switch">
+            <span class="switch"></span>
+          </div>
+        </li>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- Section---Section---Section---Section---Section---Section---Section -->
+  <div class="custom-alert" id="customAlert">
+    <p class="custom-alert-text">Acest produs a fost deja adăugat!</p>
+  </div>
+
+
+  <section class="sec">
+    <div class="text">Gustări </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <div id="pop-up" class="pop-up">
+        <span id="close1" class="close-btn1">&times;</span>
+        <h3 class="order">Comandă</h3>
+        <hr class="order-line">
+        <h3 class="pop-up-content">
+          Pentru a efectua comanda sunați la numărul de telefon: 076037007
+        </h3>
+        <a href="tel:076037007" id="call">
+          <div class="call">
+            <span>
+              Apel
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span id="close" class="close-btn">&times;</span>
+        <div class="cart">
+
+        </div>
+        <div>
+          <span class="total-price" id="buy-btn">
+            <span class="price-text"> Total: 0MDL</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <div class="main-content">
+      <ul class="cards"  id="item-list">
+        <!-- <li>
+          <div class="card">
+            <img src="../../Img/croissant1.jpg" class="card-img">
+            <div class="card-overlay">
+              <div class="card-header">
+                <div class="card-header-text">
+                  <h3 class="card-title"> Croissant</h3>
+                  <span class="product-price">15 MDL</span>
+                  <span class="add-btn">
+                    <i class="fa-sharp fa-solid fa-basket-shopping"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="card-description">
+                Croissant cu ciocolată, un produs de patiserie untos, fulgicios
+                , din aluat laminat francez cu drojdie.
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="card">
+            <img src="../../Img/donut1.jpg" class="card-img">
+            <div class="card-overlay">
+              <div class="card-header">
+                <div class="card-header-text">
+                  <h3 class="card-title"> Gogoși</h3>
+                  <span class="product-price">16 MDL</span>
+                  <span class="add-btn">
+                    <i class="fa-sharp fa-solid fa-basket-shopping"></i>
+                  </span>
+
+                </div>
+              </div>
+              <div class="card-description">
+                Produs rotund de patiserie făcut din aluat dospit și prăjit în grăsime. Cu diverse umpluturi și arome.
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="card">
+            <img src="../../img/PXL_20221106_113813307.jpg" class="card-img">
+            <div class="card-overlay">
+              <div class="card-header">
+                <div class="card-header-text">
+                  <h3 class="card-title"> Nuci Dulci</h3>
+                  <span class="product-price">5 MDL</span>
+                  <span class="add-btn">
+                    <i class="fa-sharp fa-solid fa-basket-shopping"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="card-description">
+                Nuci cu lapte condensat - prajituri clasice sovietice, cu umplutura de lapte condensat, și un exterior
+                fin
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="card">
+            <img src="../../Img/cappucino.jpg" class="card-img">
+            <div class="card-overlay">
+              <div class="card-header">
+                <div class="card-header-text">
+                  <h3 class="card-title"> Cappucino</h3>
+                  <span class="product-price">24 MDL</span>
+                  <span class="add-btn">
+                    <i class="fa-sharp fa-solid fa-basket-shopping"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="card-description">
+                Cappuccino este o specialitate de cafea, la fel de eficientă precum un espresso, dar mai lungă și dulce.
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="card">
+            <img src="../../Img/muffin.jpg" class="card-img">
+            <div class="card-overlay">
+              <div class="card-header">
+                <div class="card-header-text">
+                  <h3 class="card-title"> Brioșe</h3>
+                  <span class="product-price">10 MDL</span>
+                  <span class="add-btn">
+                    <i class="fa-sharp fa-solid fa-basket-shopping"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="card-description">
+                Un desert delicios, brioşele au o istorie îndelungată, fiind apreciate până şi de cei mai pofticioşi
+                gurmanzi.
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="card">
+            <img src="../../Img/sand.jpg" class="card-img">
+            <div class="card-overlay">
+              <div class="card-header">
+                <div class="card-header-text">
+                  <h3 class="card-title"> Sandwich</h3>
+                  <span class="product-price">32 MDL</span>
+                  <span class="add-btn">
+                    <i class="fa-sharp fa-solid fa-basket-shopping"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="card-description">
+                Sandwich-ul cu ceafa de porc este o gustare minunata pentru o zi plină.
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="card">
+            <img src="../../img/PXL_20221106_113553053.jpg" class="card-img">
+            <div class="card-overlay">
+              <div class="card-header">
+                <div class="card-header-text">
+                  <h3 class="card-title"> Croissant cu șuncă</h3>
+                  <span class="product-price">17 MDL</span>
+                  <span class="add-btn">
+                    <i class="fa-sharp fa-solid fa-basket-shopping"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="card-description">
+                Croissant cu cașcaval și șuncă, un produs de patiserie untos, fulgicios
+                , din aluat laminat francez cu drojdie.
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="card">
+            <img src="../../img/PXL_20221106_112027653.jpg" class="card-img">
+            <div class="card-overlay">
+              <div class="card-header">
+                <div class="card-header-text">
+                  <h3 class="card-title"> Plăcintă cu cartofi</h3>
+                  <span class="product-price">8 MDL</span>
+                  <span class="add-btn">
+                    <i class="fa-sharp fa-solid fa-basket-shopping"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="card-description">
+                Plăcinte clasice moldovenești din aluat de foietaj și cartofi
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="card">
+            <img src="../../img/PXL_20221106_112051774.jpg" class="card-img">
+            <div class="card-overlay">
+              <div class="card-header">
+                <div class="card-header-text">
+                  <h3 class="card-title"> Plăcintă cu brânză</h3>
+                  <span class="product-price">10 MDL</span>
+                  <span class="add-btn">
+                    <i class="fa-sharp fa-solid fa-basket-shopping"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="card-description">
+                Plăcinte clasice moldovenești din aluat de foietaj și brânză
+              </div>
+            </div>
+          </div>
+        </li> -->
+      </ul>
+    </div>
+
+  </section>
+  <footer>
+    <ul class="footer-links">
+      <li class="footer-link">
+        <a href="https://goo.gl/maps/rdXKvReN8LFmCdpDA" target="_blank" class="Gmap">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Florești, Ștefan cel Mare 57b</span>
+        </a>
+      </li>
+      <li class="footer-link">
+        <a href="https://www.instagram.com/blackrabbitcaffe/" target="_blank" class="social">
+          <i class="fa-brands fa-instagram"></i>
+          <span>Black Rabbit Caffe</span>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</body>
+
+</html>

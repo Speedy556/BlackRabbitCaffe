@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../Css/create.css" />
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+    <link rel='icon' href="../../Ico/rabbit no box.png">
+    <script src="https://kit.fontawesome.com/d6a9c2e72d.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+    <script src="../Js/ckeditor.js" defer></script>
+    <script src="../Js/main.js" defer></script>
+    <script src="../Js/admin.js" defer></script>
+    <script src="../Js/creare.js" defer></script>
+    <title>BlackRabbit - Create</title>
+</head>
+
+<body>
+    <div id="loading">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <a href="../../index.html">
+                    <span class="image">
+                        <img src="../../Ico/raabbiat.png" alt="logo" class="logo2">
+                        <img src="../../Ico/rabbit no box.png" alt="logo" class="logo1">
+                    </span>
+                </a>
+                <div class="text header-text">
+                    <span class="name">Black Rabbit</span>
+                    <span class="caffe">Caffe</span>
+                </div>
+            </div>
+
+            <i class="bx bx-chevron-right toggle" id="stoggle"></i>
+
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+
+                <!-- menu links -->
+                <ul class="menu-links">
+                    <!-- menu links -->
+                    <!-- menu home -->
+                    <li class="nav-link">
+                        <a href="../../index.html">
+                            <i class='bx bx-home-alt icon'></i>
+                            <span class="text nav-text">Acasă</span>
+                        </a>
+                    </li>
+                    <!-- menu food -->
+                    <li class="nav-link">
+                        <a href="Food.html">
+                            <i class='bx bx-dish icon'></i>
+                            <span class="text nav-text">Gustări</span>
+                        </a>
+                    </li>
+                    <!-- menu drinks -->
+                    <li class="nav-link">
+                        <a href="Drinks.html">
+                            <i class='bx bx-drink icon'></i>
+                            <span class="text nav-text">Băuturi</span>
+                        </a>
+                    </li>
+                    <!-- menu info -->
+                    <li class="nav-link">
+                        <a href="Info.html">
+                            <i class='bx bx-info-circle icon'></i>
+                            <span class="text nav-text">Informații</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom">
+                <li class="nav-link2">
+                    <a href="Admin.html">
+                        <i class="fa-solid fa-user icon"></i>
+                        <span class="text nav-text">Admin</span>
+                    </a>
+                </li>
+                <li class="nav-link1">
+                    <a href="Create.html">
+                        <i class='bx bx-plus-circle icon'></i>
+                        <span class="text nav-text">Adaugă</span>
+                    </a>
+                </li>
+                <li class="mode">
+                    <div class="night-day">
+                        <i class="bx bx-moon icon moon"></i>
+                        <i class="bx bx-sun icon sun"></i>
+                    </div>
+
+                    <span class="mode-text text">Dark Mode</span>
+
+                    <div class="toggle-switch" id="switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+    <section class="sec">
+        <div class="text">Creare </div>
+
+        <div class="container">
+            <form id="tema-form">
+
+                <label for="titlul">
+                    Titlul
+                </label>
+
+                <input required placeholder="Denumirea Produsului" id="titlul" type="text">
+
+                <label for="link-img">
+                    Imagine
+                </label>
+
+                <input required placeholder="Link la imagine" id="link-img" type="text">
+
+                <label for="price">
+                    Preț
+                </label>
+
+                <input required placeholder="Pret" id="price" type="number">
+
+                <label for="page-input">
+                    Tipul
+                </label>
+
+                <select id="page-input" required>
+                    <option value="1">Băuturi</option>
+                    <option value="2">Gustări</option>
+                </select>
+
+                <label for="desc-lung">
+                    Conținutul
+                </label>
+
+                <span id="ckeditor"></span>
+
+
+                <input id="creare-btn" type="submit" value="Creare">
+
+                <div class="custom-alert" id="custom-alert">
+                    <p class="custom-alert-text">Produsul a fost adaugat cu succes!</p>
+                  </div>
+
+
+            </form>
+        </div>
+    </section>
+    <footer>
+        <ul class="footer-links">
+            </li>
+            <li class="footer-link">
+                <a href="https://goo.gl/maps/rdXKvReN8LFmCdpDA" target="_blank" class="Gmap">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Florești, Ștefan cel Mare 57b</span>
+                </a>
+            </li>
+            <li class="footer-link">
+                <a href="https://www.instagram.com/blackrabbitcaffe/" target="_blank" class="social">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Black Rabbit Caffe</span>
+                </a>
+            </li>
+        </ul>
+
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../Css/style.css" />
+  <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+  <link rel='icon' href="../../Ico/rabbit no box.png">
+  <script src="https://kit.fontawesome.com/d6a9c2e72d.js" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+  <script src="../Js/main.js" defer></script>
+  <script src="../Js/drinks.js" defer></script>
+  <script src="../Js/window.js" defer></script>
+  <script src="../Js/store.js" defer></script>
+  <title>Băuturi</title>
+</head>
+
+<body>
+  <div id="loading">
+    <div class="circle" ></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <nav class="sidebar close">
+    <header>
+      <div class="image-text">
+        <a href="../../index.html">
+          <span class="image">
+            <img src="../../Ico/raabbiat.png" alt="logo" class="logo2">
+            <img src="../../Ico/rabbit no box.png" alt="logo" class="logo1">
+          </span>
+        </a>
+        <div class="text header-text">
+          <span class="name">Black Rabbit</span>
+          <span class="caffe">Caffe</span>
+        </div>
+      </div>
+
+      <i class="bx bx-chevron-right toggle" id="stoggle"></i>
+
+    </header>
+
+    <div class="menu-bar">
+      <div class="menu">
+
+        <!-- menu links -->
+        <ul class="menu-links">
+          <!-- menu links -->
+          <!-- menu home -->
+          <li class="nav-link">
+            <a href="../../index.html">
+              <i class='bx bx-home-alt icon'></i>
+              <span class="text nav-text">Acasă</span>
+            </a>
+          </li>
+          <!-- menu food -->
+          <li class="nav-link">
+            <a href="Food.html">
+              <i class='bx bx-dish icon'></i>
+              <span class="text nav-text">Gustări</span>
+            </a>
+          </li>
+          <!-- menu drinks -->
+          <li class="nav-link">
+            <a href="Drinks.html">
+              <i class='bx bx-drink icon'></i>
+              <span class="text nav-text">Băuturi</span>
+            </a>
+          </li>
+          <!-- menu cart -->
+          <li class="nav-link">
+            <a href="#" id="cartbtn">
+              <i class='bx bx-cart-alt icon'></i>
+              <span class="text nav-text">Coș</span>
+            </a>
+          </li>
+
+          <!-- menu info -->
+          <li class="nav-link">
+            <a href="Info.html">
+              <i class='bx bx-info-circle icon'></i>
+              <span class="text nav-text">Informații</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="bottom">
+        <li class="nav-link2">
+          <a href="Admin.html">
+            <i class="fa-solid fa-user icon"></i>
+            <span class="text nav-text">Admin</span>
+          </a>
+        </li>
+        <li class="nav-link1">
+          <a href="Create.html">
+            <i class='bx bx-plus-circle icon'></i>
+            <span class="text nav-text">Adaugă</span>
+          </a>
+        </li>
+        <li class="mode">
+          <div class="night-day">
+            <i class="bx bx-moon icon moon"></i>
+            <i class="bx bx-sun icon sun"></i>
+          </div>
+
+          <span class="mode-text text">Dark Mode</span>
+
+          <div class="toggle-switch" id="switch">
+            <span class="switch"></span>
+          </div>
+        </li>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- Section---Section---Section---Section---Section---Section---Section -->
+  <div class="custom-alert" id="customAlert">
+    <p class="custom-alert-text">Acest produs a fost deja adăugat!</p>
+  </div>
+
+  <section class="sec">
+    <div class="text">Băuturi</div>
+    <div id="myModal" class="modal">
+      <div id="pop-up" class="pop-up">
+        <span id="close1" class="close-btn1">&times;</span>
+        <h3 class="order">Comandă</h3>
+        <hr class="order-line">
+        <h3 class="pop-up-content">
+          Pentru a efectua comanda sunați la numărul de telefon: 076037007
+        </h3>
+        <a href="tel:076037007" id="call">
+          <div class="call">
+            <span>
+              Apel
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span id="close" class="close-btn">&times;</span>
+        <div class="cart">
+
+        </div>
+        <div>
+          <span class="total-price" id="buy-btn">
+            <span class="price-text"> Total: 0MDL</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="main-content">
+      <div class="cards-wrapper">
+        <ul class="cards" id="item-list">
+          <!-- <li class="cardLi" data-item-id="123">
+            <div class="card">
+              <img src="https://i.postimg.cc/4NQcxWTL/latte.jpg" class="card-img">
+              <div class="card-overlay">
+                <div class="card-header">
+                  <div class="card-header-text">
+                    <h3 class="card-title"> Gogoși</h3>
+                    <span class="product-price">16 MDL</span>
+                    <span class="delete">
+                      <i class="fas fa-trash"></i>
+                    </span>
+
+                    <span class="add-btn">
+                      <i class="fa-sharp fa-solid fa-basket-shopping"></i>
+                    </span>
+
+                  </div>
+                </div>
+                <div class="card-description">
+                  Produs rotund de patiserie făcut din aluat dospit și prăjit în grăsime. Cu diverse umpluturi și arome.
+                </div>
+              </div>
+            </div>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <ul class="footer-links">
+      <li class="footer-link">
+        <a href="https://goo.gl/maps/rdXKvReN8LFmCdpDA" target="_blank" class="Gmap">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Florești, Ștefan cel Mare 57b</span>
+        </a>
+      </li>
+      <li class="footer-link">
+        <a href="https://www.instagram.com/blackrabbitcaffe/" target="_blank" class="social">
+          <i class="fa-brands fa-instagram"></i>
+          <span>Black Rabbit Caffe</span>
+        </a>
+      </li>
+    </ul>
+
+  </footer>
+
+</html>
